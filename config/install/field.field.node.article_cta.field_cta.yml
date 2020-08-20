@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cta
+    - node.type.article_cta
+  module:
+    - link
+id: node.article_cta.field_cta
+field_name: field_cta
+entity_type: node
+bundle: article_cta
+label: 'Actions:'
+description: 'Buttons with settings'
+required: false
+translatable: false
+default_value:
+  -
+    attributes: {  }
+    uri: 'internal:/'
+    options:
+      attributes:
+        button-type: button-rounded
+        button_icon: fa-home
+    title: demo
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

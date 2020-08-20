@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Defines simple link field types.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Template\Attribute;
+
+
+/**
+ * Implements hook_theme().
+ */
+function button_cta_theme() {
+  return array(
+    'link_formatter_button_cta' => array(
+      'variables' => array('title' => NULL, 'url_title' => NULL, 'url' => NULL, 'button-type' => NULL, 'button_icon' => NULL),
+    ),
+  );
+}
+
+function template_preprocess_link_formatter_button_cta(&$variables) {
+  $url = $variables['url'];
+  $attributes = $url->getOption('attributes');
+  $attributes['role'] = 'button';
+  $attributes['class'][] = 'btn';
+
+  if($attributes['button-type'] == 'button-none'){
+    $attributes['class'][] = 'button-none';
+  }
+  elseif($attributes['button-type'] == 'button-default'){
+    $attributes['class'][] = $variables['button-type'];
+  }
+  else{
+    $attributes['class'][] = $attributes['button-type'];
+  }
+
+  $attributes['href'] = $url->toString();
+  $url->setOption('attributes', $attributes);
+  $variables['link'] = Link::fromTextAndUrl($variables['title'], $url )->toString();
+  $variables['attributes'] = new Attribute($attributes);
+  $icon_attributes['class'][] = 'fas';
+
+  if($attributes['button_icon'] == 'icon-none'){
+    $icon_attributes['class'][] = 'button-none';
+  }
+  elseif($attributes['button_icon'] == 'icon-default'){
+    $icon_attributes['class'][] = $variables['button_icon'];
+  }
+  else{
+    $icon_attributes['class'][] = $attributes['button_icon'];
+  }
+
+  $variables['icon_attributes'] = new Attribute($icon_attributes);
+
+}

@@ -1,0 +1,63 @@
+<?php
+
+use Drupal\node\Entity\Node;
+
+/**
+ * @file
+ * Requirements for Button CTA.
+ */
+
+/**
+* Implements hook_install().
+*/
+function button_cta_install() {
+
+
+  $node = Node::create([
+    'type' => 'article_cta',
+    'langcode' => 'en',
+    'created' => REQUEST_TIME,
+    'changed' => REQUEST_TIME,
+    'uid' => 1,
+    'title' => 'Demo content',
+    'field_tags' =>[2],
+    'body' => [
+      'summary' => '',
+      'value' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus neque massa, vulputate in erat ut, sollicitudin eleifend felis. Curabitur eget interdum sem. Integer viverra mi et dictum feugiat. Nulla tristique leo erat, vitae mattis massa ultrices ut. Proin efficitur maximus convallis. Maecenas nec urna ut ipsum faucibus consequat non quis arcu. In in est pulvinar, consectetur ante et, rhoncus massa. Curabitur ullamcorper consequat nibh. Fusce feugiat porta mi vitae vestibulum. Praesent iaculis, magna nec vulputate rhoncus, magna lacus malesuada libero, in lacinia nisi turpis sit amet purus. Pellentesque non ultricies urna. Vestibulum maximus mi vel ex semper, eget pulvinar ante mollis. Quisque a mauris scelerisque, hendrerit nunc sed, lacinia lacus. Mauris sed quam et urna ornare pulvinar non non tortor. Quisque accumsan magna auctor tristique sollicitudin.</p>',
+      'format' => 'full_html',
+    ],
+    'field_cta' => [
+      [
+        'title' => 'Default',
+        'uri' => 'internal:/',
+        'options' =>[
+          'attributes'=>[
+           'button-type' => 'button-default',
+           'button_icon' => 'icon-default'
+         ]
+        ]
+      ],
+      [
+        'title' => 'White',
+        'uri' => 'internal:/',
+        'options' =>[
+          'attributes'=>[
+           'button-type' => 'button-white',
+           'button_icon' => 'fa-folder-plus'
+         ]
+        ]
+      ],
+      [
+        'title' => 'Danger',
+        'uri' => 'internal:/',
+        'options' =>[
+          'attributes'=>[
+           'button-type' => 'button-danger',
+           'button_icon' => 'fa-chart-bar'
+         ]
+        ]
+      ]
+    ],
+  ]);
+  $node->save();
+}
